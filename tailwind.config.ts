@@ -8,11 +8,25 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      backgroundImage: {
-        "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-conic":
-          "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
+
+      fontFamily: {
+        'mona': ['var(--font-mona)'],
       },
+
+      colors: {
+        'tokena-white': '#FFFFFF',
+        'tokena-light-gray': '#F3F4F6',
+        'tokena-gray': '#D1D5DB',
+        'tokena-dark-gray': '#6B7280',
+        'tokena-dark': '#1D1D1D',
+        'tokena-yellow': '#F2D604',
+        'tokena-green': '#01B130',
+        'tokena-red': '#CB0101',
+        'tokena-blue': '#006EFF',
+        'tokena-dark-2': '#0065EA',
+        'tokena-dark-blue-1': '#171923',
+        'tokena-dark-blue-2' : '#292C3B',
+      }
     },
   },
   plugins: [],
