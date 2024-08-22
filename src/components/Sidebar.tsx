@@ -22,7 +22,7 @@ const Sidebar = () => {
       </button>
 
       <aside
-        className={`fixed top-0 left-0 w-72 h-screen bg-white border-r transform ${
+        className={`fixed top-0 left-0 w-72 bg-white border-r transform lg:static ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } transition-transform duration-300 ease-in-out lg:translate-x-0 flex flex-col font-mona font-medium px-4`}
       >
