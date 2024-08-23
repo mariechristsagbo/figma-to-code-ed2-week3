@@ -29,9 +29,9 @@ const Trending = () => {
 
   return (
     <div className='w-full'>
-      <div className='pb-1.5 px-1 flex items-center justify-between'>
-        <h2 className="text-tokena-dark text-lg font-semibold">Trending</h2>
-        <a href="#" className='flex items-center gap-1 text-sm text-tokena-dark-gray font-medium hover:underline'>
+      <div className='pb-3 px-1 flex items-center justify-between'>
+        <h2 className="text-tokena-dark text-xl font-semibold">Trending</h2>
+        <a href="#" className='flex items-center gap-1 text-base text-tokena-dark-gray font-medium hover:underline'>
           View more
           <img src="/icons/chevron-right.svg" alt="Chevron right" className='w-5 h-5' />
         </a>
@@ -45,10 +45,10 @@ const Trending = () => {
           <div className="text-center text-tokena-red">{error}</div>
         ) : (
           trendingCoins.map((coin) => (
-            <div key={coin.id} className="border rounded-xl p-3.5">
+            <div key={coin.id} className="border rounded-xl p-2.5">
               <div className='flex items-center justify-between gap-4'>
                 <div className="flex items-center space-x-2">
-                    <img src={coin.thumb} alt={coin.name} className="w-10 h-10 rounded-full p-1" />
+                  <img src={coin.thumb} alt={coin.name} className="w-10 h-10 rounded-full p-1" />
                   <div>
                     <p className="font-bold text-md text-tokena-dark-gray">{coin.name}</p>
                     <p className="uppercase text-tokena-dark-gray font-bold text-xs">{coin.symbol}</p>

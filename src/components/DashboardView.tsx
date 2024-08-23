@@ -1,10 +1,15 @@
 'use client';
-
+import React, {useState} from "react";
 import MarketTable from "./MarketTable";
 import Trending from "./Trending";
+import SearchBar from "./SearchBar";
+import { SearchResult } from "@/types";
+
 export default function DashboardView() {
+  const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
   return (
+    
     <div className="flex-1 p-6 bg-white font-mona">
 
       <header className="flex items-center justify-between">
@@ -33,11 +38,11 @@ export default function DashboardView() {
       <section className="mt-6 flex items-center gap-4 lg:flex-row flex-col">
 
         <div className="border rounded-xl p-5 w-[30%]">
-          <h2 className="text-tokena-dark text-lg font-semibold">Balance</h2>
+          <h2 className="text-tokena-dark text-xl font-semibold">Balance</h2>
           <div className="flex items-center justify-between">
             <p className="text-xl font-semibold text-tokena-dark">$63,755,200</p>
             <div className="flex items-center space-x-2">
-              <p className="text-tokena-green text-sm bg-tokena-green bg-opacity-10 p-1.5 font-semibold rounded-full">
+              <p className="text-tokena-green text-sm bg-tokena-green bg-opacity-10 p-1.5 px-2.5 font-semibold rounded-full">
                 +2.3%
               </p>
               <p className="font-medium text-tokena-dark-gray text-sm">vs last month</p>
@@ -60,7 +65,23 @@ export default function DashboardView() {
 
       </section>
 
-      <MarketTable />
+      <section className="my-10">
+        <div className="flex items-center justify-between">
+
+        <SearchBar onSearchResults={setSearchResults} />
+
+
+        <button className="flex items-center justify-between w-1/6 p-3 px-4 border border-tokena-gray rounded-xl transition-colors">
+          <span className="text-tokena-dark-gray font-medium">Categories</span>
+          <img src="/icons/chevron-down.svg" alt="Chevron Down" className="w-4 h-4" />
+        </button>
+        </div>
+        
+
+      </section>
+
+      <MarketTable searchResults={searchResults} />
+
 
     </div>
   );
