@@ -8,6 +8,7 @@ export const getMarketData = async (currency: string): Promise<CoinData[]> => {
     const response = await fetch(
       `${API_URL}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=10&page=1&sparkline=true&price_change_percentage=24h`,
       {
+        mode: 'cors',
         headers: {
           'Accept': 'application/json',
         },
@@ -29,6 +30,7 @@ export const getTrendingCoins = async (): Promise<TrendingCoin[]> => {
 
   try {
     const response = await fetch(`${API_URL}/search/trending`, {
+      mode: 'cors',
       headers: {
         'Accept': 'application/json',
       },
