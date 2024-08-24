@@ -40,18 +40,18 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchResults }) => {
 
   return (
     <div className="relative w-23">
-      <div className="flex items-center gap-3 border border-tokena-gray rounded-xl p-3 text-tokena-dark-gray font-medium">
+      <div className="flex items-center gap-3 border border-tokena-gray dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl p-3 text-tokena-dark-gray font-medium">
         <img src="/icons/search.svg" alt="Search Icon" className="w-4 h-4" />
         <input
           type="text"
-          className="outline-none w-full"
+          className="outline-none w-full dark:bg-tokena-dark-blue-1 dark:text-tokena-white"
           placeholder="Search crypto..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>
 
-      {loading && <div className="mt-2 text-tokena-dark-gray">Loading...</div>}
+      {/* {loading && <div className="mt-2 text-tokena-dark-gray">Loading...</div>} */}
     </div>
   );
 };

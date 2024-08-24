@@ -6,17 +6,21 @@ import SearchBar from "./SearchBar";
 import { SearchResult } from "@/types";
 
 export default function DashboardView() {
+  const [darkMode, setDarkMode] = useState(false);
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
 
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
   return (
     
-    <div className="flex-1 p-6 bg-white font-mona">
+    <div className={"flex-1 p-6 font-mona"}>
 
       <header className="flex items-center justify-between">
         <div className="flex items-center space-x-10">
           <div>
-            <h1 className="text-2xl font-semibold">Dashboard</h1>
-            <p className="text-tokena-dark-gray font-medium">Welcome back, John Doe</p>
+            <h1 className="text-2xl font-semibold dark:text-tokena-gray">Dashboard</h1>
+            <p className="text-tokena-dark-gray dark:text-tokena-gray font-medium">Welcome back, John Doe</p>
           </div>
           <button className="bg-tokena-blue text-white px-4 py-2 rounded-lg font-medium sm:flex items-center hidden">
             <img src="/icons/add-wallet.svg" alt="Wallet Icon" className="w-5 h-5 mr-2" />
@@ -25,11 +29,12 @@ export default function DashboardView() {
         </div>
 
         <div className="flex items-center space-x-4">
-          <button className="text-tokena-dark-gray flex items-center gap-1 border p-3 rounded-lg px-4">
+          <button className="text-tokena-dark-gray flex items-center gap-1 border dark:border-tokena-dark-gray dark:border-opacity-40 p-3 rounded-lg px-4">
             USD
             <img src="/icons/chevron-up-down.svg" alt="Chevron Up Down" className="w-5 h-5" />
           </button>
-          <button className="p-3.5 border rounded-lg">
+
+          <button className="p-3.5 border rounded-lg dark:border-tokena-dark-gray dark:border-opacity-40">
             <img src="/icons/moon.svg" alt="Theme Light" className="w-5 h-5" />
           </button>
         </div>
@@ -37,15 +42,15 @@ export default function DashboardView() {
 
       <section className="mt-6 flex items-center gap-4 lg:flex-row flex-col">
 
-        <div className="border rounded-xl p-5 lg:w-[30%] w-full">
-          <h2 className="text-tokena-dark text-xl font-semibold">Balance</h2>
+        <div className="cursor-pointer border rounded-xl p-5 lg:w-[30%] w-full dark:border-tokena-dark-gray dark:border-opacity-40">
+          <h2 className="text-tokena-dark dark:text-tokena-gray text-xl font-semibold">Balance</h2>
           <div className="flex items-center justify-between">
-            <p className="text-xl font-semibold text-tokena-dark">$63,755,200</p>
+            <p className="text-xl font-semibold text-tokena-dark dark:bg-tokena-dark-blue-1 dark:text-tokena-white">$63,755,200</p>
             <div className="flex items-center space-x-2">
               <p className="text-tokena-green text-sm bg-tokena-green bg-opacity-10 p-1.5 px-2.5 font-semibold rounded-full">
                 +2.3%
               </p>
-              <p className="font-medium text-tokena-dark-gray text-sm">vs last month</p>
+              <p className="font-medium text-tokena-dark-gray dark:text-tokena-gray text-sm">vs last month</p>
             </div>
           </div>
 
@@ -71,9 +76,9 @@ export default function DashboardView() {
         <SearchBar onSearchResults={setSearchResults} />
 
 
-        <button className="flex items-center justify-between lg:w-1/6 w-80 p-3 px-4 border border-tokena-gray rounded-xl">
+        <button className="flex items-center justify-between lg:w-1/6 w-80 p-3 px-4 border border-tokena-gray dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl">
           <span className="text-tokena-dark-gray font-medium">Categories</span>
-          <img src="/icons/chevron-down.svg" alt="Chevron Down" className="w-4 h-4" />
+          <img src="/icons/chevron-down.svg" alt="Chevron Down" className="w-4 h-4 dark:invert" />
         </button>
         </div>
         

@@ -48,16 +48,16 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
   }, [currency, searchResults]);
 
   return (
-    <section className="mt-6 border rounded-xl p-4">
+    <section className="mt-6 border dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl p-4">
       <h2 className="text-xl font-semibold mb-4">Market</h2>
       {loading ? (
         <div className="text-center">Loading...</div>
       ) : error ? (
         <div className="text-center text-red-500">{error}</div>
       ) : (
-        <div className="bg-white rounded-lg overflow-x-auto">
+        <div className="rounded-lg overflow-x-auto">
           <table className="min-w-full">
-            <thead className="bg-tokena-light-gray">
+            <thead className="bg-tokena-light-gray bg-opacity-30 dark:bg-tokena-dark-blue-2 dark:bg-opacity-30">
               <tr className="text-sm">
                 <th className="py-3 px-6 text-left font-medium">#</th>
                 <th className="py-3 px-6 text-left font-medium">Coins</th>
@@ -70,13 +70,13 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
             </thead>
             <tbody>
               {marketData.map((coin, index) => (
-                <tr key={coin.id} className="border-b hover:bg-tokena-light-gray">
+                <tr key={coin.id} className="border-b dark:border-tokena-dark-blue-2 hover:bg-tokena-light-gray dark:hover:bg-tokena-dark-blue-1">
                   <td className="py-4 px-6">{index + 1}</td>
                   <td className="py-4 px-6 flex items-center">
                     <img src={coin.image || coin.thumb} alt={coin.name} className="w-6 h-6 mr-2" />
                     <div>
                       <p className="font-medium text-sm">{coin.name}</p>
-                      <p className="uppercase text-gray-500 text-xs">{coin.symbol}</p>
+                      <p className="uppercase dark:text-tokena-gray text-gray-500 text-xs">{coin.symbol}</p>
                     </div>
                   </td>
                   <td className="py-4 px-6 text-right">
@@ -91,7 +91,7 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
                     }`}
                   >
                   <p className={`p-1 px-2 rounded-full ${
-                      coin.price_change_percentage_24h >= 0 ? 'bg-green-100 max-w-max ml-auto' : 'bg-red-100 max-w-max ml-auto'
+                      coin.price_change_percentage_24h >= 0 ? 'bg-tokena-green bg-opacity-10 max-w-max ml-auto' : 'bg-tokena-red bg-opacity-10 max-w-max ml-auto'
                     }`}>  {coin.price_change_percentage_24h?.toFixed(2) || 'N/A'}%</p>
                   </td>
                   <td className="py-4 px-6 text-right hidden md:table-cell">
@@ -122,7 +122,7 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
               ))}
             </tbody>
           </table>
-          <div className="mt-4 flex justify-between items-center">
+          {/* <div className="mt-4 flex justify-between items-center">
             <p className="text-sm text-gray-500">Showing 1 to 50 of 15027 results</p>
             <div className="flex items-center space-x-2">
               <button className="text-sm text-tokena-blue">1</button>
@@ -130,7 +130,7 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
               <span className="text-sm text-gray-500">...</span>
               <button className="text-sm text-tokena-blue">151</button>
             </div>
-          </div>
+          </div> */}
         </div>
       )}
     </section>
