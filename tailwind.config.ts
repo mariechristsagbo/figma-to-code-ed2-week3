@@ -26,6 +26,10 @@ const config: Config = {
         'tokena-dark-2': '#0065EA',
         'tokena-dark-blue-1': '#171923',
         'tokena-dark-blue-2' : '#292C3B',
+      },
+
+      width:{
+        '23': '23rem',
       }
     },
   },

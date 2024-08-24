@@ -16,9 +16,9 @@ export default function DashboardView() {
         <div className="flex items-center space-x-10">
           <div>
             <h1 className="text-2xl font-semibold">Dashboard</h1>
-            <p className="text-tokena-dark-gray font-medium">Welcome back, John Doe!</p>
+            <p className="text-tokena-dark-gray font-medium">Welcome back, John Doe</p>
           </div>
-          <button className="bg-tokena-blue text-white px-4 py-2 rounded-lg font-medium flex items-center">
+          <button className="bg-tokena-blue text-white px-4 py-2 rounded-lg font-medium sm:flex items-center hidden">
             <img src="/icons/add-wallet.svg" alt="Wallet Icon" className="w-5 h-5 mr-2" />
             Connect wallet
           </button>
@@ -37,7 +37,7 @@ export default function DashboardView() {
 
       <section className="mt-6 flex items-center gap-4 lg:flex-row flex-col">
 
-        <div className="border rounded-xl p-5 w-[30%]">
+        <div className="border rounded-xl p-5 lg:w-[30%] w-full">
           <h2 className="text-tokena-dark text-xl font-semibold">Balance</h2>
           <div className="flex items-center justify-between">
             <p className="text-xl font-semibold text-tokena-dark">$63,755,200</p>
@@ -66,12 +66,12 @@ export default function DashboardView() {
       </section>
 
       <section className="my-10">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between md:flex-row flex-col gap-4">
 
         <SearchBar onSearchResults={setSearchResults} />
 
 
-        <button className="flex items-center justify-between w-1/6 p-3 px-4 border border-tokena-gray rounded-xl transition-colors">
+        <button className="flex items-center justify-between lg:w-1/6 w-80 p-3 px-4 border border-tokena-gray rounded-xl">
           <span className="text-tokena-dark-gray font-medium">Categories</span>
           <img src="/icons/chevron-down.svg" alt="Chevron Down" className="w-4 h-4" />
         </button>

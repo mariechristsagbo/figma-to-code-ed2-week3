@@ -20,7 +20,6 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
 
   useEffect(() => {
     if (searchResults.length > 0) {
-      // If there are search results, don't fetch the default market data
       setMarketData(searchResults as any);
       setLoading(false);
       return;
@@ -56,7 +55,7 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
       ) : error ? (
         <div className="text-center text-red-500">{error}</div>
       ) : (
-        <div className="bg-white rounded-lg">
+        <div className="bg-white rounded-lg overflow-x-auto">
           <table className="min-w-full">
             <thead className="bg-tokena-light-gray">
               <tr className="text-sm">
@@ -64,9 +63,9 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
                 <th className="py-3 px-6 text-left font-medium">Coins</th>
                 <th className="py-3 px-6 text-right font-medium">Price</th>
                 <th className="py-3 px-6 text-right font-medium">24h</th>
-                <th className="py-3 px-6 text-right font-medium">24h Volume</th>
-                <th className="py-3 px-6 text-right font-medium">Market Cap</th>
-                <th className="py-3 px-6 text-right font-medium">Last 7 Days</th>
+                <th className="py-3 px-6 text-right font-medium hidden md:table-cell">24h Volume</th>
+                <th className="py-3 px-6 text-right font-medium hidden lg:table-cell">Market Cap</th>
+                <th className="py-3 px-6 text-right font-medium hidden lg:table-cell">Last 7 Days</th>
               </tr>
             </thead>
             <tbody>
@@ -76,7 +75,7 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
                   <td className="py-4 px-6 flex items-center">
                     <img src={coin.image || coin.thumb} alt={coin.name} className="w-6 h-6 mr-2" />
                     <div>
-                      <p className="font-medium">{coin.name}</p>
+                      <p className="font-medium text-sm">{coin.name}</p>
                       <p className="uppercase text-gray-500 text-xs">{coin.symbol}</p>
                     </div>
                   </td>
@@ -88,24 +87,24 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
                   </td>
                   <td
                     className={`py-4 px-6 text-right font-semibold ${
-                      coin.price_change_percentage_24h >= 0 ? 'text-green-500' : 'text-red-500'
+                      coin.price_change_percentage_24h >= 0 ? 'text-tokena-green' : 'text-tokena-red'
                     }`}
                   >
                     {coin.price_change_percentage_24h?.toFixed(2) || 'N/A'}%
                   </td>
-                  <td className="py-4 px-6 text-right">
+                  <td className="py-4 px-6 text-right hidden md:table-cell">
                     {new Intl.NumberFormat('en-US', {
                       style: 'currency',
                       currency: currency.toUpperCase(),
                     }).format(coin.total_volume || 0)}
                   </td>
-                  <td className="py-4 px-6 text-right">
+                  <td className="py-4 px-6 text-right hidden lg:table-cell">
                     {new Intl.NumberFormat('en-US', {
                       style: 'currency',
                       currency: currency.toUpperCase(),
                     }).format(coin.market_cap || 0)}
                   </td>
-                  <td className="py-4 px-6 text-right">
+                  <td className="py-4 px-6 text-right hidden lg:table-cell">
                     {coin.sparkline_in_7d ? (
                       <Sparklines data={coin.sparkline_in_7d.price} width={100} height={40}>
                         <SparklinesLine
@@ -121,6 +120,15 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
               ))}
             </tbody>
           </table>
+          <div className="mt-4 flex justify-between items-center">
+            <p className="text-sm text-gray-500">Showing 1 to 50 of 15027 results</p>
+            <div className="flex items-center space-x-2">
+              <button className="text-sm text-tokena-blue">1</button>
+              <button className="text-sm text-tokena-blue">2</button>
+              <span className="text-sm text-gray-500">...</span>
+              <button className="text-sm text-tokena-blue">151</button>
+            </div>
+          </div>
         </div>
       )}
     </section>

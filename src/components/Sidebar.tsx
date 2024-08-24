@@ -15,7 +15,7 @@ const Sidebar = () => {
   return (
     <>
       <button
-        className="lg:hidden p-4 focus:outline-none"
+        className="hidden p-4 focus:outline-none"
         onClick={toggleSidebar}
       >
         <img src="/icons/hamburger.svg" alt="Menu" />

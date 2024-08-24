@@ -38,7 +38,7 @@ const Trending = () => {
 
       </div>
 
-      <div className="grid grid-cols-4 space-x-4">
+      <div className="grid lg:grid-cols-4 sm:grid-cols-2 gap-4">
         {loading ? (
           <div className="text-center">Loading...</div>
         ) : error ? (
@@ -54,9 +54,9 @@ const Trending = () => {
                     <p className="uppercase text-tokena-dark-gray font-bold text-xs">{coin.symbol}</p>
                   </div>
                 </div>
-                <p className={`text-sm font-semibold rounded-full p-1.5 inline-flex items-center ${coin.price_change_percentage_24h >= 0 ? 'text-tokena-green bg-green-100' : 'text-tokena-red bg-red-100'}`}>
+                <p className={`text-xs md:text-sm font-semibold rounded-full p-1.5 inline-flex items-center ${coin.price_change_percentage_24h >= 0 ? 'text-tokena-green bg-green-100' : 'text-tokena-red bg-red-100'}`}>
                   {coin.price_change_percentage_24h.toFixed(2)} %
-                  <img src={coin.price_change_percentage_24h >= 0 ? "/icons/trade-up.svg" : "/icons/trade-down.svg"} alt="Trending" className="w-4 h-4 ml-1" />
+                  <img src={coin.price_change_percentage_24h >= 0 ? "/icons/trade-up.svg" : "/icons/trade-down.svg"} alt="Trending" className="w-3 h-3 ml-1" />
                 </p>
               </div>
               <div className="mt-4">
