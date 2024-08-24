@@ -86,11 +86,13 @@ const MarketTable = ({ searchResults }: { searchResults: SearchResult[] }) => {
                     }).format(coin.current_price || 0)}
                   </td>
                   <td
-                    className={`py-4 px-6 text-right font-semibold ${
+                    className={`py-4 px-6 text-right font-medium text-sm ${
                       coin.price_change_percentage_24h >= 0 ? 'text-tokena-green' : 'text-tokena-red'
                     }`}
                   >
-                    {coin.price_change_percentage_24h?.toFixed(2) || 'N/A'}%
+                  <p className={`p-1 px-2 rounded-full ${
+                      coin.price_change_percentage_24h >= 0 ? 'bg-green-100 max-w-max ml-auto' : 'bg-red-100 max-w-max ml-auto'
+                    }`}>  {coin.price_change_percentage_24h?.toFixed(2) || 'N/A'}%</p>
                   </td>
                   <td className="py-4 px-6 text-right hidden md:table-cell">
                     {new Intl.NumberFormat('en-US', {
