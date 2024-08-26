@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useCryptoNews } from '@/services/newsapi'; 
 import SkeletonCard from './skeletons/NewsCardSkeleton';
+import { formatDistanceToNow, parseISO } from 'date-fns'; 
 
 export default function NewsCard() {
   const { news, loading, error } = useCryptoNews();
@@ -38,7 +39,8 @@ export default function NewsCard() {
               <img src="/images/cmc.svg" className="w-10 h-10 rounded-full" />
               <div className='flex flex-col'>
                 <h1 className='text-tokena-dark dark:text-tokena-white text-lg font-semibold'>{article.source.name}</h1>
-                <p className='dark:text-tokena-light-gray text-tokena-dark-gray text-sm'>{article.author}</p>
+                <p className='dark:text-tokena-light-gray text-tokena-dark-gray text-sm'>News - {formatDistanceToNow(parseISO(article.publishedAt), { addSuffix: true })}
+                </p>
               </div>
             </div>
             <img src={article.urlToImage} alt="" className='w-[80em] h-[15em] my-3 rounded-2xl' />
