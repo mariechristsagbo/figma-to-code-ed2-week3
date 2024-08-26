@@ -1,21 +1,24 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
-import { SearchResult } from '@/types';
+
+interface SearchResult {
+  id: string;
+  name: string;
+  symbol: string;
+  thumb: string;
+}
 
 interface SearchBarProps {
-  onSearchResults: (results: SearchResult[]) => void;
+  onSearchResults: (ids: string[]) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearchResults }) => {
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (query.length === 0) {
-      setResults([]);
-      onSearchResults([]);
+      onSearchResults([]);  
       return;
     }
 
@@ -24,9 +27,8 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchResults }) => {
       try {
         const response = await fetch(`https://api.coingecko.com/api/v3/search?query=${query}`);
         const data = await response.json();
-        const coins = data.coins.slice(0, 5); 
-        setResults(coins);
-        onSearchResults(coins); 
+        const ids = data.coins.slice(0, 5).map((coin: SearchResult) => coin.id); 
+        onSearchResults(ids); 
       } catch (error) {
         console.error('Failed to fetch search results:', error);
       } finally {
@@ -50,8 +52,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchResults }) => {
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>
-
-      {/* {loading && <div className="mt-2 text-tokena-dark-gray">Loading...</div>} */}
     </div>
   );
 };

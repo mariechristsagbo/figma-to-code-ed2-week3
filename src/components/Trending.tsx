@@ -1,9 +1,7 @@
-'use client';
-
 import React, { useState, useEffect } from 'react';
 import { getTrendingCoins } from '@/services/coingecko';
 import { TrendingCoin } from '@/types';
-
+import TrendingSkeleton from './skeletons/TrendingSkeleton';
 
 const Trending = () => {
   const [trendingCoins, setTrendingCoins] = useState<TrendingCoin[]>([]);
@@ -35,12 +33,16 @@ const Trending = () => {
           View more
           <img src="/icons/chevron-right.svg" alt="Chevron right" className='w-5 h-5 dark:invert' />
         </a>
-
       </div>
 
       <div className="grid lg:grid-cols-4 sm:grid-cols-2 gap-4">
         {loading ? (
-          <div className="text-center">Loading...</div>
+          <>
+            <TrendingSkeleton />
+            <TrendingSkeleton />
+            <TrendingSkeleton />
+            <TrendingSkeleton />
+          </>
         ) : error ? (
           <div className="text-center text-tokena-red">{error}</div>
         ) : (
