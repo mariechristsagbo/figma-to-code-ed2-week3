@@ -45,7 +45,7 @@ export default function NewsCard() {
 
             <h2 className='font-semibold line-clamp-2'>{article.title}</h2>
 
-            <p className='text-tokena-gray dark:text-tokena-white text-sm my-2 mb-4 line-clamp-3'>
+            <p className='text-tokena-dark-gray font-medium dark:text-tokena-white text-sm my-2 mb-4 line-clamp-3'>
               {article.description || "No description available."}
             </p>
           </div>
