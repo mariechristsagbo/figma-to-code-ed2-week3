@@ -25,7 +25,7 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
         const data = await getMarketData(currency, searchResults.length > 0 ? searchResults : undefined);
         setMarketData(data);
       } catch (err) {
-        setError('Failed to fetch market data');
+        setError('Aucune crypto-monnaie trouvée. Veuillez rafraîchir après quelques secondes.');
       } finally {
         setLoading(false);
       }
@@ -54,7 +54,7 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
     <section className="mt-6 border dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl p-4">
       <h2 className="text-xl font-semibold mb-4">Market</h2>
       {error ? (
-        <div className="text-center text-red-500">{error}</div>
+        <div className="text-center dark:text-white">{error}</div>
       ) : (
         <div className="rounded-lg overflow-x-auto">
           <table className="min-w-full">

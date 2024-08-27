@@ -60,7 +60,7 @@ const Trending = () => {
                   </div>
                 </div>
                 <p className={`text-xs font-semibold rounded-full p-1.5 inline-flex items-center ${coin.price_change_percentage_24h >= 0 ? 'text-tokena-green bg-tokena-green bg-opacity-10' : 'text-tokena-red bg-tokena-red bg-opacity-10'}`}>
-                  {coin.price_change_percentage_24h.toFixed(2)} %
+                  {coin.price_change_percentage_24h.toFixed(1)} %
                   <img src={coin.price_change_percentage_24h >= 0 ? "/icons/trade-up.svg" : "/icons/trade-down.svg"} alt="Trending" className="w-3 h-3 ml-1" />
                 </p>
               </div>
