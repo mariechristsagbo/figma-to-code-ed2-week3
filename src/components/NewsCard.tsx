@@ -60,7 +60,7 @@ export default function NewsCard() {
             onClick={loadMore} 
             className='flex items-center gap-2 dark:text-white text-tokena-dark py-3 px-5 rounded-full border dark:border-tokena-light-gray border-tokena-gray dark:border-opacity-40 font-semibold'>
             Load More
-            <span><img src="/icons/arrow-down-black.svg" alt="" className='dark:invert' /></span>
+           <img src="/icons/arrow-down-black.svg" alt="" className='dark:invert' />
           </button>
         </div>
       )}
