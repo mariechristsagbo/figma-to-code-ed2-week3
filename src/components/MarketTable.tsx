@@ -4,19 +4,19 @@ import { getMarketData } from '@/services/coingecko';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 import { CoinData } from '@/types';
 import TableSkeleton from '@/components/skeletons/TableSkeleton';
-
-interface SearchResult {
-  id: string;
-  name: string;
-  symbol: string;
-  thumb: string;
+import CryptoDetailsModal from './CryptoDetail';
+interface MarketTableProps {
+  searchResults: string[];
 }
 
-const MarketTable = ({ searchResults }: { searchResults: string[] }) => {
+const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
   const [currency, setCurrency] = useState('usd');
   const [marketData, setMarketData] = useState<CoinData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedCrypto, setSelectedCrypto] = useState<CoinData | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     const fetchMarketData = async () => {
       setLoading(true);
@@ -40,6 +40,15 @@ const MarketTable = ({ searchResults }: { searchResults: string[] }) => {
     return () => clearInterval(interval);
   }, [currency, searchResults]);
 
+  const openModal = (crypto: CoinData) => {
+    setSelectedCrypto(crypto);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedCrypto(null);
+  };
 
   return (
     <section className="mt-6 border dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl p-4">
@@ -67,7 +76,8 @@ const MarketTable = ({ searchResults }: { searchResults: string[] }) => {
                 {marketData.map((coin, index) => (
                   <tr
                     key={coin.id}
-                    className="border-b dark:border-tokena-dark-blue-2 hover:bg-tokena-light-gray dark:hover:bg-tokena-dark-blue-1"
+                    className="border-b dark:border-tokena-dark-blue-2 hover:bg-tokena-light-gray dark:hover:bg-tokena-dark-blue-1 cursor-pointer"
+                    onClick={() => openModal(coin)}
                   >
                     <td className="py-4 px-6">{index + 1}</td>
                     <td className="py-4 px-6 flex items-center">
@@ -121,6 +131,11 @@ const MarketTable = ({ searchResults }: { searchResults: string[] }) => {
           </table>
         </div>
       )}
+      <CryptoDetailsModal 
+        isOpen={isModalOpen} 
+        onClose={closeModal} 
+        cryptoData={selectedCrypto} 
+      />
     </section>
   );
 };
