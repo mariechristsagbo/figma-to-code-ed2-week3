@@ -25,7 +25,7 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
         const data = await getMarketData(currency, searchResults.length > 0 ? searchResults : undefined);
         setMarketData(data);
       } catch (err) {
-        setError('Aucune crypto-monnaie trouvée. Veuillez rafraîchir après quelques secondes.');
+        setError('No cryptocurrencies found. Please refresh the page after 30 seconds and try again.');
       } finally {
         setLoading(false);
       }
