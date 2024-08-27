@@ -1,8 +1,11 @@
 'use client';
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
+
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
@@ -26,7 +29,7 @@ const Sidebar = () => {
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } transition-transform duration-300 ease-in-out lg:translate-x-0 flex flex-col font-mona font-medium px-4`}
       >
-        <div className="my-5 py-3 bg-tokena-blue bg-opacity-5 rounded-xl px-3">
+        <div className="my-5 py-3 bg-tokena-blue bg-opacity-5 rounded-xl px-3 cursor-pointer" onClick={() => router.push("/")}>
           <div className="flex items-center space-x-2">
             <div className="p-2">
               <img src="/images/logo.svg" alt="Tokena Logo" />
@@ -50,7 +53,7 @@ const Sidebar = () => {
                 <span className="ml-4">Dashboard</span>
               </a>
             </li>
-            <li>
+            <li onClick={() => router.push("/news")}>
               <a href="#" className="flex items-center p-3 text-tokena-dark dark:text-tokena-gray dark:hover:bg-tokena-blue hover:bg-gray-100 rounded-xl">
                 <img
                   src="/icons/news.svg"

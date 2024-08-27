@@ -34,7 +34,7 @@ export default function NewsCard() {
     <div className='max-w-3xl lg:max-w-full grid lg:grid-cols-4 sm:grid-cols-2 lg:gap-8 gap-2 mt-8 mx-auto'>
       {visibleNews.map((article) => (
         <div key={article.url} className='max-w-sm mx-auto border rounded-xl p-2 dark:border-tokena-dark-gray dark:border-opacity-40 dark:bg-tokena-dark-blue-2'>
-          <div className='px-2 my-2'>
+          <div className='px-2 mt-2'>
             <div className='flex items-center gap-5'>
               <img src="/images/cmc.svg" className="w-10 h-10 rounded-full" />
               <div className='flex flex-col'>
@@ -43,13 +43,25 @@ export default function NewsCard() {
                 </p>
               </div>
             </div>
-            <img src={article.urlToImage} alt="" className='w-[80em] h-[15em] my-3 rounded-2xl' />
+            <img src={article.urlToImage} alt="" className='w-[70em] h-[12em] my-3 rounded-2xl' />
 
             <h2 className='font-semibold line-clamp-2'>{article.title}</h2>
 
             <p className='text-tokena-dark-gray font-medium dark:text-tokena-white text-sm my-2 mb-4 line-clamp-3'>
               {article.description || "No description available."}
             </p>
+          </div>
+
+          <div className='px-2 flex items-center gap-4 mb-2'>
+            <div className='flex items-center gap-2'>
+              <img src="/icons/heart.svg" alt="" className='w-5 h-5 dark:invert' />
+              <p>5</p>
+            </div>
+
+            <div className='flex items-center gap-2'>
+              <img src="/icons/comment.svg" alt="" className='w-5 h-5 dark:invert' />
+              <p>5</p>
+            </div>
           </div>
         </div>
       ))}
