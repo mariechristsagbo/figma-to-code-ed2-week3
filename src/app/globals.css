@@ -25,5 +25,14 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  body.light {
+    background-color: white;
+  }
+  
+  body.dark {
+    background-color: #171923;
+  }
+
   
   
