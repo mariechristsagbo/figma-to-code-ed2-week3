@@ -83,7 +83,7 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
                     <td className="py-4 px-6 flex items-center">
                       <img src={coin.image || coin.thumb} alt={coin.name} className="w-6 h-6 mr-2" />
                       <div>
-                        <p className="font-medium text-sm">{coin.name}</p>
+                        <p className="font-medium text-sm line-clamp-1">{coin.name}</p>
                         <p className="uppercase dark:text-tokena-gray text-gray-500 text-xs">{coin.symbol}</p>
                       </div>
                     </td>
