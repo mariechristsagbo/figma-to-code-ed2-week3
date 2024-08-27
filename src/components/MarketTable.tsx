@@ -1,10 +1,10 @@
-'use client';
 import React, { useState, useEffect } from 'react';
 import { getMarketData } from '@/services/coingecko';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
 import { CoinData } from '@/types';
 import TableSkeleton from '@/components/skeletons/TableSkeleton';
 import CryptoDetailsModal from './CryptoDetail';
+
 interface MarketTableProps {
   searchResults: string[];
 }
@@ -25,7 +25,7 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
         const data = await getMarketData(currency, searchResults.length > 0 ? searchResults : undefined);
         setMarketData(data);
       } catch (err) {
-        setError('No cryptocurrencies found. Please refresh the page after a few minutes and try again.');
+        setError('No cryptocurrencies found. Please refresh the page after a few minutes.');
       } finally {
         setLoading(false);
       }
@@ -51,12 +51,15 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
   };
 
   return (
-    <section className="mt-6 border dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl p-4">
-      <h2 className="text-xl font-semibold mb-4">Market</h2>
+    <section className="mt-6 border dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl p-4 overflow-hidden max-w-[85vw] mx-auto">
+      <div className='flex items-center justify-between mb-4'>
+        <h2 className="text-xl font-semibold px-3">Market</h2>
+        <img src="/icons/dropdown-menu.svg" alt="dropdown" className="dark:invert w-8 h-8 border border-tokena-gray dark:border-tokena-dark-blue-1 dark:border-opacity-20 p-1 rounded-lg" />
+      </div>
       {error ? (
         <div className="text-center dark:text-white">{error}</div>
       ) : (
-        <div className="rounded-lg overflow-x-auto">
+        <div className="overflow-x-auto overflow-y-auto max-h-[calc(100vh-150px)] scrollbar-thin">
           <table className="min-w-full">
             <thead className="bg-tokena-light-gray bg-opacity-30 dark:bg-tokena-dark-blue-2 dark:bg-opacity-30">
               <tr className="text-sm">
@@ -64,9 +67,9 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
                 <th className="py-3 px-6 text-left font-medium">Coins</th>
                 <th className="py-3 px-6 text-right font-medium">Price</th>
                 <th className="py-3 px-6 text-right font-medium">24h</th>
-                <th className="py-3 px-6 text-right font-medium hidden md:table-cell">24h Volume</th>
-                <th className="py-3 px-6 text-right font-medium hidden lg:table-cell">Market Cap</th>
-                <th className="py-3 px-6 text-right font-medium hidden lg:table-cell">Last 7 Days</th>
+                <th className="py-3 px-6 text-right font-medium">24h Volume</th>
+                <th className="py-3 px-6 text-right font-medium">Market Cap</th>
+                <th className="py-3 px-6 text-right font-medium truncate">Last 7 Days</th>
               </tr>
             </thead>
             {loading ? (
@@ -100,19 +103,19 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
                       <p className={`p-1 px-2 rounded-full ${coin.price_change_percentage_24h >= 0 ? 'bg-tokena-green bg-opacity-10 max-w-max ml-auto' : 'bg-tokena-red bg-opacity-10 max-w-max ml-auto'
                         }`}>  {coin.price_change_percentage_24h?.toFixed(2) || 'N/A'}%</p>
                     </td>
-                    <td className="py-4 px-6 text-right hidden md:table-cell">
+                    <td className="py-4 px-6 text-right">
                       {new Intl.NumberFormat('en-US', {
                         style: 'currency',
                         currency: currency.toUpperCase(),
                       }).format(coin.total_volume || 0)}
                     </td>
-                    <td className="py-4 px-6 text-right hidden lg:table-cell">
+                    <td className="py-4 px-6 text-right">
                       {new Intl.NumberFormat('en-US', {
                         style: 'currency',
                         currency: currency.toUpperCase(),
                       }).format(coin.market_cap || 0)}
                     </td>
-                    <td className="py-4 px-6 text-right hidden lg:table-cell">
+                    <td className="py-4 px-6 text-right">
                       {coin.sparkline_in_7d ? (
                         <Sparklines data={coin.sparkline_in_7d.price} width={100} height={40}>
                           <SparklinesLine
@@ -131,12 +134,13 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
           </table>
         </div>
       )}
-      <CryptoDetailsModal 
-        isOpen={isModalOpen} 
-        onClose={closeModal} 
-        cryptoData={selectedCrypto} 
+      <CryptoDetailsModal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        cryptoData={selectedCrypto}
       />
     </section>
+
   );
 };
 

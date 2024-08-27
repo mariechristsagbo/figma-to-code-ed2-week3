@@ -6,7 +6,7 @@ export const getMarketData = async (currency: string, ids?: string[]): Promise<C
   try {
     const idQuery = ids ? `&ids=${ids.join(',')}` : '';
     const response = await fetch(
-      `${API_URL}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=10&page=1&sparkline=true&price_change_percentage=24h${idQuery}`,
+      `${API_URL}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=30&page=1&sparkline=true&price_change_percentage=24h${idQuery}`,
       {
         headers: {
           'Accept': 'application/json',
