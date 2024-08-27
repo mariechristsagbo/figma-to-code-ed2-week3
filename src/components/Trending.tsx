@@ -16,7 +16,7 @@ const Trending = () => {
         const coins = await getTrendingCoins();
         setTrendingCoins(coins);
       } catch (err) {
-        setError('Failed to fetch trending coins');
+        setError('No cryptocurrencies found. Please refresh the page after a few minutes and try again.');
       } finally {
         setLoading(false);
       }
@@ -44,7 +44,7 @@ const Trending = () => {
             <TrendingSkeleton />
           </>
         ) : error ? (
-          <div className="text-center text-tokena-red">{error}</div>
+          <div className="text-center dark:text-white">{error}</div>
         ) : (
           trendingCoins.map((coin) => (
             <div key={coin.id} className="cursor-pointer border dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl p-2.5 hover:bg-tokena-blue hover:bg-opacity-5">
