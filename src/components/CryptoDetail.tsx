@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import { Line } from 'react-chartjs-2';
 import {
@@ -29,7 +28,7 @@ const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose
     const step = Math.floor(dataPoints.length / (labels.length - 1));
 
     const data = {
-        labels: labels, 
+        labels: labels,
         datasets: [
             {
                 label: 'Price',
@@ -38,7 +37,7 @@ const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose
                     dataPoints[step],
                     dataPoints[step * 2],
                     dataPoints[dataPoints.length - 1]
-                ], 
+                ],
                 borderColor: '#00C234',
                 backgroundColor: 'rgba(0, 194, 52, 0.2)',
                 borderWidth: 2,
@@ -79,8 +78,8 @@ const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white dark:bg-tokena-dark-blue-1 p-6 rounded-xl max-w-lg w-full">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end sm:items-center justify-center">
+            <div className="bg-white dark:bg-tokena-dark-blue-1 p-6 rounded-t-3xl sm:rounded-3xl max-w-lg w-full sm:w-auto sm:max-w-lg">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-2xl font-semibold">{cryptoData.name}</h2>
                     <button onClick={onClose} className="p-1 bg-gray-50 bg-opacity-95 dark:bg-tokena-dark-blue-2 rounded-md">
@@ -98,8 +97,8 @@ const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose
                     <div className='flex items-center gap-3'>
                         <img src={cryptoData.image || cryptoData.thumb} alt={cryptoData.name} className="w-10 h-10" />
                         <h3 className="text-lg font-semibold">{cryptoData.name} ({cryptoData.symbol.toUpperCase()}/USD)</h3>
-                        </div>
-                        <p className="text-xl font-bold">${cryptoData.current_price.toLocaleString()}</p>
+                    </div>
+                    <p className="text-xl font-bold">${cryptoData.current_price.toLocaleString()}</p>
                 </div>
 
                 <div className="space-y-2 mb-6">

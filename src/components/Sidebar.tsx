@@ -1,31 +1,18 @@
 'use client';
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-const Sidebar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+interface SidebarProps {
+  isOpen: boolean;
+  toggleSidebar: () => void;
+  closeSidebar: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ isOpen, toggleSidebar, closeSidebar }) => {
   const router = useRouter();
-
-
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const closeSidebar = () => {
-    setIsOpen(false);
-  };
-
   return (
     <>
-      <button
-        className="hidden p-4 focus:outline-none"
-        onClick={toggleSidebar}
-      >
-        <img src="/icons/hamburger.svg" alt="Menu" />
-      </button>
-
       <aside
-        className={`fixed top-0 left-0 w-72 dark:bg-tokena-dark-blue-1 border-r dark:border-tokena-dark-gray dark:border-opacity-40 transform lg:static ${
+        className={`fixed top-0 left-0 w-72 h-full dark:bg-tokena-dark-blue-1 border-r dark:border-tokena-dark-gray dark:border-opacity-40 transform lg:static bg-white ${
           isOpen ? 'translate-x-0' : '-translate-x-full'
         } transition-transform duration-300 ease-in-out lg:translate-x-0 flex flex-col font-mona font-medium px-4`}
       >

@@ -5,13 +5,33 @@ import Trending from "./Trending";
 import SearchBar from "./SearchBar";
 import { SearchResult } from "@/types";
 import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 export default function DashboardView() {
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const closeSidebar = () => {
+    setIsSidebarOpen(false);
+  };
+
 
   return (
     <div className="flex-1 p-6 font-mona">
-    <Header/>
+      <div className="flex items-center w-full">
+        <button
+          className="lg:hidden p-4 focus:outline-none"
+          onClick={toggleSidebar}
+        >
+          <img src="/icons/hamburger.svg" alt="Menu" className="w-8 h-8 border rounded-lg p-1 dark:border-tokena-dark-gray dark:border-opacity-40" />
+        </button>
+        <Header />
+      </div>
+
       <section className="mt-6 flex items-center gap-4 lg:flex-row flex-col">
         <div className="cursor-pointer border rounded-xl p-5 lg:w-[30%] w-full dark:border-tokena-dark-gray dark:border-opacity-40">
           <h2 className="text-tokena-dark dark:text-tokena-gray text-xl font-semibold">Balance</h2>
@@ -52,6 +72,15 @@ export default function DashboardView() {
       </section>
 
       <MarketTable searchResults={searchResults} />
+
+      <div className="lg:hidden flex">
+        <Sidebar
+          isOpen={isSidebarOpen}
+          toggleSidebar={toggleSidebar}
+          closeSidebar={closeSidebar}
+        />
+      </div>
+
     </div>
   );
 }

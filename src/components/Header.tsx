@@ -2,7 +2,7 @@ import React from 'react'
 import ThemeToggle from './ThemeToggle'
 export default function Header() {
     return (
-        <header className="flex items-center justify-between">
+        <header className="flex items-center justify-between w-10/12">
             <div className="flex items-center space-x-10">
                 <div>
                     <h1 className="sm:text-2xl text-base font-semibold dark:text-tokena-gray">Dashboard</h1>
@@ -14,7 +14,7 @@ export default function Header() {
                 </button>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 px-4">
                 <button className="text-tokena-dark-gray flex items-center gap-1 border dark:border-tokena-dark-gray dark:border-opacity-40 p-2 rounded-lg px-2">
                     USD
                     <img src="/icons/chevron-up-down.svg" alt="Chevron Up Down" className="w-5 h-5" />
