@@ -24,13 +24,12 @@ interface CryptoDetailsModalProps {
 const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose, cryptoData }) => {
     if (!isOpen || !cryptoData) return null;
 
-    // Si la courbe contient plus de 4 points, nous prenons des échantillons uniformément
-    const labels = ['Jan', 'Feb', 'Mar', 'Apr'];
+    const labels = ['1', '2', '3', '4'];
     const dataPoints = cryptoData.sparkline_in_7d.price;
     const step = Math.floor(dataPoints.length / (labels.length - 1));
 
     const data = {
-        labels: labels, // Utilise les mois comme labels
+        labels: labels, 
         datasets: [
             {
                 label: 'Price',
@@ -39,7 +38,7 @@ const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose
                     dataPoints[step],
                     dataPoints[step * 2],
                     dataPoints[dataPoints.length - 1]
-                ], // Aligne les données avec les labels
+                ], 
                 borderColor: '#00C234',
                 backgroundColor: 'rgba(0, 194, 52, 0.2)',
                 borderWidth: 2,
