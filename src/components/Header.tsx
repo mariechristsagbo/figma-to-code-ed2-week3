@@ -2,7 +2,7 @@ import React from 'react'
 import ThemeToggle from './ThemeToggle'
 export default function Header() {
     return (
-        <header className="flex items-center justify-between w-10/12">
+        <header className="flex items-center justify-between w-10/12 lg:w-full">
             <div className="flex items-center space-x-10">
                 <div>
                     <h1 className="sm:text-2xl text-base font-semibold dark:text-tokena-gray">Dashboard</h1>
