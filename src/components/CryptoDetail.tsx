@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Line } from 'react-chartjs-2';
 import {
     Chart as ChartJS,
@@ -11,6 +11,8 @@ import {
     Legend,
 } from 'chart.js';
 import { CoinData } from '@/types';
+import { getCoinDetails } from '@/services/coingecko';
+import parse from 'html-react-parser';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -21,6 +23,26 @@ interface CryptoDetailsModalProps {
 }
 
 const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose, cryptoData }) => {
+    const [coinDetails, setCoinDetails] = useState<CoinData | null>(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        if (cryptoData?.id) {
+            const fetchDetails = async () => {
+                try {
+                    const details = await getCoinDetails(cryptoData.id);
+                    setCoinDetails(details);
+                } catch (error) {
+                    console.error(error);
+                } finally {
+                    setLoading(false);
+                }
+            };
+
+            fetchDetails();
+        }
+    }, [cryptoData]);
+
     if (!isOpen || !cryptoData) return null;
 
     const labels = ['1', '2', '3', '4'];
@@ -54,6 +76,7 @@ const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose
                     autoSkip: true,
                     maxRotation: 0,
                     minRotation: 0,
+                    padding: 1,
                 },
             },
             y: {
@@ -78,8 +101,8 @@ const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose
     };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-end sm:items-center justify-center">
-            <div className="bg-white dark:bg-tokena-dark-blue-1 p-6 rounded-t-3xl sm:rounded-3xl max-w-lg w-full sm:w-auto sm:max-w-lg">
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex justify-end">
+            <div className="bg-white dark:bg-tokena-dark-blue-1 p-6 md:w-2/5 w-full h-full overflow-y-auto">
                 <div className="flex justify-between items-center mb-4">
                     <h2 className="text-2xl font-semibold">{cryptoData.name}</h2>
                     <button onClick={onClose} className="p-1 bg-gray-50 bg-opacity-95 dark:bg-tokena-dark-blue-2 rounded-md">
@@ -88,7 +111,7 @@ const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose
                 </div>
 
                 <div className="mb-6">
-                    <div style={{ position: 'relative', height: '300px', width: '100%' }}>
+                    <div style={{ position: 'relative', height: '200px', width: '100%' }}>
                         <Line data={data} options={options} />
                     </div>
                 </div>
@@ -102,6 +125,10 @@ const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose
                 </div>
 
                 <div className="space-y-2 mb-6">
+                    <div className="flex justify-between">
+                        <span className='font-medium'>Crypto Market Rank</span>
+                        <span className='font-semibold'>Rank #{cryptoData.market_cap_rank || 'N/A'}</span>
+                    </div>
                     <div className="flex justify-between">
                         <span className='font-medium'>Market Cap</span>
                         <span>${cryptoData.market_cap.toLocaleString()}</span>
@@ -122,8 +149,8 @@ const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose
 
                 <div className="mb-6">
                     <h4 className="text-lg font-semibold">Description</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-300">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus.
+                    <p className="text-sm text-tokena-dark-gray dark:text-tokena-gray text-justify">
+                    {parse(coinDetails?.description?.en || "No description available.")}
                     </p>
                 </div>
 

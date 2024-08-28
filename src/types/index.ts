@@ -1,4 +1,6 @@
 export interface CoinData {
+    market_data: any;
+    market_cap_rank: string;
     id: string;
     symbol: string;
     name: string;
@@ -10,6 +12,9 @@ export interface CoinData {
     thumb: string;
     sparkline_in_7d: {
       price: number[];
+    };
+    description?: {
+      en: string;
     };
   }
 

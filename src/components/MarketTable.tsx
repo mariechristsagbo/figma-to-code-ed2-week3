@@ -1,3 +1,4 @@
+'use client'
 import React, { useState, useEffect } from 'react';
 import { getMarketData } from '@/services/coingecko';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
@@ -17,13 +18,18 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
   const [selectedCrypto, setSelectedCrypto] = useState<CoinData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage, setItemsPerPage] = useState(10); 
+  const [totalPages, setTotalPages] = useState(10);
+
   useEffect(() => {
     const fetchMarketData = async () => {
       setLoading(true);
       setError(null);
       try {
-        const data = await getMarketData(currency, searchResults.length > 0 ? searchResults : undefined);
+        const { data, total } = await getMarketData(currency, currentPage, itemsPerPage, searchResults.length > 0 ? searchResults : undefined);
         setMarketData(data);
+        setTotalPages(Math.ceil(total / itemsPerPage)); 
       } catch (err) {
         setError('No cryptocurrencies found. Please refresh the page after a few minutes.');
       } finally {
@@ -32,13 +38,7 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
     };
 
     fetchMarketData();
-
-    const interval = setInterval(() => {
-      fetchMarketData();
-    }, 300000);
-
-    return () => clearInterval(interval);
-  }, [currency, searchResults]);
+  }, [currency, searchResults, currentPage, itemsPerPage]);
 
   const openModal = (crypto: CoinData) => {
     setSelectedCrypto(crypto);
@@ -50,8 +50,17 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
     setSelectedCrypto(null);
   };
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
+  const handleItemsPerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setItemsPerPage(Number(event.target.value));
+    setCurrentPage(1); 
+  };
+
   return (
-    <section className="mt-6 border dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl p-4 overflow-hidden max-w-[85vw] mx-auto">
+    <section className="mt-6 border dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl py-4 px-3 overflow-hidden max-w-[88vw] mx-auto">
       <div className='flex items-center justify-between mb-4'>
         <h2 className="text-xl font-semibold px-3">Market</h2>
         <img src="/icons/dropdown-menu.svg" alt="dropdown" className="dark:invert w-8 h-8 border border-tokena-gray dark:border-tokena-dark-blue-1 dark:border-opacity-20 p-1 rounded-lg" />
@@ -82,7 +91,7 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
                     className="border-b dark:border-tokena-dark-blue-2 hover:bg-tokena-light-gray dark:hover:bg-tokena-dark-blue-1 cursor-pointer"
                     onClick={() => openModal(coin)}
                   >
-                    <td className="py-4 px-6">{index + 1}</td>
+                    <td className="py-4 px-6">{index + 1 + (currentPage - 1) * itemsPerPage}</td>
                     <td className="py-4 px-6 flex items-center">
                       <img src={coin.image || coin.thumb} alt={coin.name} className="w-6 h-6 mr-2" />
                       <div>
@@ -134,13 +143,44 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
           </table>
         </div>
       )}
+      <div className="flex justify-between items-center mt-4 px-4">
+        {/* <div className="flex items-center">
+          <button
+            className="px-4 py-2 bg-tokena-blue text-white rounded-lg"
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          <span className="px-4">{currentPage} / {totalPages}</span>
+          <button
+            className="px-4 py-2 bg-tokena-blue text-white rounded-lg"
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div> */}
+        <div className="flex items-center">
+          <label htmlFor="itemsPerPage" className="mr-2">Rows</label>
+          <select
+            id="itemsPerPage"
+            className="p-2 px-3 rounded-lg dark:bg-tokena-dark-blue-2 dark:border-tokena-dark-gray dark:border-opacity-40 outline-none"
+            value={itemsPerPage}
+            onChange={handleItemsPerPageChange}
+          >
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={30}>30</option>
+          </select>
+        </div>
+      </div>
       <CryptoDetailsModal
         isOpen={isModalOpen}
         onClose={closeModal}
         cryptoData={selectedCrypto}
       />
     </section>
-
   );
 };
 

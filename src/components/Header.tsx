@@ -5,10 +5,10 @@ export default function Header() {
         <header className="flex items-center justify-between w-10/12 lg:w-full">
             <div className="flex items-center space-x-10">
                 <div>
-                    <h1 className="sm:text-2xl text-base font-semibold dark:text-tokena-gray">Dashboard</h1>
-                    <p className="text-tokena-dark-gray dark:text-tokena-gray font-medium sm:text-base text-xs">Welcome back, John Doe</p>
+                    <h1 className="md:text-xl  text-base font-semibold dark:text-tokena-gray">Dashboard</h1>
+                    <p className="text-tokena-dark-gray dark:text-tokena-gray font-medium md:text-base text-xs">Welcome back, John Doe</p>
                 </div>
-                <button className="bg-tokena-blue text-white px-4 py-2 rounded-lg font-medium sm:flex items-center hidden">
+                <button className="bg-tokena-blue text-white px-4 py-2 text-sm rounded-lg font-medium sm:flex items-center hidden">
                     <img src="/icons/add-wallet.svg" alt="Wallet Icon" className="w-5 h-5 mr-2" />
                     Connect wallet
                 </button>

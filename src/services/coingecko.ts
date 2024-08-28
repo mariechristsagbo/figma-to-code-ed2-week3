@@ -2,11 +2,11 @@ import { CoinData, TrendingCoin } from "@/types";
 
 const API_URL = 'https://api.coingecko.com/api/v3';
 
-export const getMarketData = async (currency: string, ids?: string[]): Promise<CoinData[]> => {
+export const getMarketData = async (currency: string, page: number, itemsPerPage: number, ids?: string[]): Promise<{ data: CoinData[], total: number }> => {
   try {
     const idQuery = ids ? `&ids=${ids.join(',')}` : '';
     const response = await fetch(
-      `${API_URL}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=30&page=1&sparkline=true&price_change_percentage=24h${idQuery}`,
+      `${API_URL}/coins/markets?vs_currency=${currency}&order=market_cap_desc&per_page=${itemsPerPage}&page=${page}&sparkline=true&price_change_percentage=24h${idQuery}`,
       {
         headers: {
           'Accept': 'application/json',
@@ -19,12 +19,18 @@ export const getMarketData = async (currency: string, ids?: string[]): Promise<C
       throw new Error(`Failed to fetch market data: ${response.status} ${errorMessage}`);
     }
 
-    return await response.json();
+    const data = await response.json();
+    
+    const total = response.headers.get('X-Total-Count') ? parseInt(response.headers.get('X-Total-Count')!, 10) : 0;
+
+    return { data, total };
   } catch (error) {
     console.error("Error fetching market data:", error);
     throw error;
   }
 };
+
+
 
 export const getTrendingCoins = async (): Promise<TrendingCoin[]> => {
   try {
@@ -55,6 +61,25 @@ export const getTrendingCoins = async (): Promise<TrendingCoin[]> => {
     }));
   } catch (error) {
     console.error("Error fetching trending coins:", error);
+    throw error;
+  }
+};
+
+export const getCoinDetails = async (id: string): Promise<CoinData> => {
+  try {
+    const response = await fetch(`${API_URL}/coins/${id}`, {
+      headers: {
+        'Accept': 'application/json',
+      },
+    });
+    if (!response.ok) {
+      const errorMessage = await response.text();
+      throw new Error(`Failed to fetch coin details: ${response.status} ${errorMessage}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error fetching coin details:", error);
     throw error;
   }
 };

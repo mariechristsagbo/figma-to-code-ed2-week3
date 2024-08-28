@@ -31,7 +31,7 @@ export default function NewsCard() {
   };
 
   return (
-    <div className='max-w-3xl lg:max-w-full grid lg:grid-cols-4 sm:grid-cols-2 lg:gap-8 gap-2 mt-8 mx-auto'>
+    <div className='max-w-3xl lg:max-w-full grid lg:grid-cols-4 sm:grid-cols-2 lg:gap-8 gap-4 mt-8 mx-auto'>
       {visibleNews.map((article) => (
         <div key={article.url} className='max-w-sm mx-auto border rounded-xl p-2 dark:border-tokena-dark-gray dark:border-opacity-40 dark:bg-tokena-dark-blue-2'>
           <div className='px-2 mt-2'>
