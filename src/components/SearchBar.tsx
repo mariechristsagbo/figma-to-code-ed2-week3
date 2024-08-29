@@ -9,7 +9,7 @@ interface SearchResult {
 }
 
 interface SearchBarProps {
-  onSearchResults: (ids: string[]) => void;
+  onSearchResults: (results: SearchResult[]) => void;
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({ onSearchResults }) => {
@@ -27,8 +27,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchResults }) => {
       try {
         const response = await fetch(`https://api.coingecko.com/api/v3/search?query=${query}`);
         const data = await response.json();
-        const ids = data.coins.slice(0, 5).map((coin: SearchResult) => coin.id); 
-        onSearchResults(ids); 
+        const results: SearchResult[] = data.coins.slice(0, 5).map((coin: SearchResult) => ({
+          id: coin.id,
+          name: coin.name,
+          symbol: coin.symbol,
+          thumb: coin.thumb
+        })); 
+        onSearchResults(results); 
       } catch (error) {
         console.error('Failed to fetch search results:', error);
       } finally {

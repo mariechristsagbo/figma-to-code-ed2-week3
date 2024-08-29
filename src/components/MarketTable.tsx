@@ -1,13 +1,13 @@
-'use client'
+'use client';
 import React, { useState, useEffect } from 'react';
 import { getMarketData } from '@/services/coingecko';
 import { Sparklines, SparklinesLine } from 'react-sparklines';
-import { CoinData } from '@/types';
+import { CoinData, SearchResult } from '@/types';
 import TableSkeleton from '@/components/skeletons/TableSkeleton';
 import CryptoDetailsModal from './CryptoDetail';
 
 interface MarketTableProps {
-  searchResults: string[];
+  searchResults: SearchResult[];
 }
 
 const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
@@ -26,8 +26,10 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
     const fetchMarketData = async () => {
       setLoading(true);
       setError(null);
+
       try {
-        const { data, total } = await getMarketData(currency, currentPage, itemsPerPage, searchResults.length > 0 ? searchResults : undefined);
+        const searchIds = searchResults.length > 0 ? searchResults.map(result => result.id) : undefined;
+        const { data, total } = await getMarketData(currency, currentPage, itemsPerPage, searchIds);
         setMarketData(data);
         setTotalPages(Math.ceil(total / itemsPerPage)); 
       } catch (err) {
@@ -144,23 +146,6 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
         </div>
       )}
       <div className="flex justify-between items-center mt-4 px-4">
-        {/* <div className="flex items-center">
-          <button
-            className="px-4 py-2 bg-tokena-blue text-white rounded-lg"
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            Previous
-          </button>
-          <span className="px-4">{currentPage} / {totalPages}</span>
-          <button
-            className="px-4 py-2 bg-tokena-blue text-white rounded-lg"
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            Next
-          </button>
-        </div> */}
         <div className="flex items-center">
           <label htmlFor="itemsPerPage" className="mr-2">Rows</label>
           <select
