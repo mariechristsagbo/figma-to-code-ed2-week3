@@ -1,23 +1,44 @@
-'use client'
+'use client';
 import { useEffect, useState } from "react";
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    const root = document.documentElement;
+    if (typeof window !== "undefined") {
+      const savedTheme = localStorage.getItem("theme") || "light";
+      setTheme(savedTheme);
+      
+      const root = document.documentElement;
 
-    if (theme === "dark") {
-      root.classList.add("dark");
-      document.body.classList.add("dark");
-      document.body.classList.remove("light");
-    } else {
-      root.classList.remove("dark");
-      document.body.classList.add("light");
-      document.body.classList.remove("dark");
+      if (savedTheme === "dark") {
+        root.classList.add("dark");
+        document.body.classList.add("dark");
+        document.body.classList.remove("light");
+      } else {
+        root.classList.remove("dark");
+        document.body.classList.add("light");
+        document.body.classList.remove("dark");
+      }
     }
-    
-    localStorage.setItem("theme", theme);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const root = document.documentElement;
+
+      if (theme === "dark") {
+        root.classList.add("dark");
+        document.body.classList.add("dark");
+        document.body.classList.remove("light");
+      } else {
+        root.classList.remove("dark");
+        document.body.classList.add("light");
+        document.body.classList.remove("dark");
+      }
+
+      localStorage.setItem("theme", theme);
+    }
   }, [theme]);
 
   const toggleTheme = () => {
