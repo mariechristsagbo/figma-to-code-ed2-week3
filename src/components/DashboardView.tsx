@@ -21,8 +21,8 @@ export default function DashboardView() {
 
 
   return (
-    <div className="flex-1 font-mona">
-      <div className="flex items-center w-full px-1 py-3 lg:p-6">
+    <div className="flex-1 p-6 font-mona">
+      <div className="flex items-center w-full">
         <button
           className="lg:hidden p-4 focus:outline-none"
           onClick={toggleSidebar}
@@ -31,30 +31,29 @@ export default function DashboardView() {
         </button>
         <Header />
       </div>
-      <div className="p-6">
-        <BalanceSection />
 
-        <section className="my-10">
-          <div className="flex items-center justify-between md:flex-row flex-col gap-4">
-            <SearchBar onSearchResults={setSearchResults} />
+      <BalanceSection />
+      <section className="my-10">
+        <div className="flex items-center justify-between md:flex-row flex-col gap-4">
+          <SearchBar onSearchResults={setSearchResults} />
 
-            <button className="flex items-center justify-between lg:w-1/6 w-80 p-3 px-4 border border-tokena-gray dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl">
-              <span className="text-tokena-dark-gray font-medium">Categories</span>
-              <img src="/icons/chevron-down.svg" alt="Chevron Down" className="w-4 h-4 dark:invert" />
-            </button>
-          </div>
-        </section>
-
-        <MarketTable searchResults={searchResults} />
-
-        <div className="lg:hidden flex">
-          <Sidebar
-            isOpen={isSidebarOpen}
-            toggleSidebar={toggleSidebar}
-            closeSidebar={closeSidebar}
-          />
+          <button className="flex items-center justify-between lg:w-1/6 w-80 p-3 px-4 border border-tokena-gray dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl">
+            <span className="text-tokena-dark-gray font-medium">Categories</span>
+            <img src="/icons/chevron-down.svg" alt="Chevron Down" className="w-4 h-4 dark:invert" />
+          </button>
         </div>
+      </section>
+
+      <MarketTable searchResults={searchResults} />
+
+      <div className="lg:hidden flex">
+        <Sidebar
+          isOpen={isSidebarOpen}
+          toggleSidebar={toggleSidebar}
+          closeSidebar={closeSidebar}
+        />
       </div>
+
     </div>
   );
 }
