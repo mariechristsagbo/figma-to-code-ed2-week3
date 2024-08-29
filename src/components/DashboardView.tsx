@@ -22,27 +22,26 @@ export default function DashboardView() {
 
   return (
     <div className="flex-1 font-mona">
-      <div className="flex items-center w-full px-1 py-3 lg:p-6">
+      <div className="flex items-center w-full px-1 pt-2 lg:px-6 lg:py-4 border-b dark:bg-tokena-dark-blue-1 dark:border-tokena-dark-gray dark:border-opacity-40">
         <button
           className="lg:hidden p-4 focus:outline-none"
-          onClick={toggleSidebar}
-        >
+          onClick={toggleSidebar}>
           <img src="/icons/hamburger.svg" alt="Menu" className="w-8 h-8 border rounded-lg p-1 dark:border-tokena-dark-gray dark:border-opacity-40" />
         </button>
         <Header />
       </div>
-      <div className="p-6">
+      <div className="px-6">
         <BalanceSection />
-        <section className="my-10">
+        <div className="my-10">
           <div className="flex items-center justify-between md:flex-row flex-col gap-4">
             <SearchBar onSearchResults={setSearchResults} />
 
             <button className="flex items-center justify-between lg:w-1/6 w-80 p-3 px-4 border border-tokena-gray dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl">
-              <span className="text-tokena-dark-gray font-medium">Categories</span>
+              <span className="text-tokena-dark-gray font-medium text-sm">Categories</span>
               <img src="/icons/chevron-down.svg" alt="Chevron Down" className="w-4 h-4 dark:invert" />
             </button>
           </div>
-        </section>
+        </div>
 
         <MarketTable searchResults={searchResults} />
 

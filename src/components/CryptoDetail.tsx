@@ -158,7 +158,7 @@ const CryptoDetailsModal: React.FC<CryptoDetailsModalProps> = ({ isOpen, onClose
                 <div className="text-center">
                     <button
                         onClick={onClose}
-                        className="bg-tokena-blue bg-opacity-5 dark:bg-tokena-dark-blue-2 text-tokena-blue dark:bg-opacity-40 dark:text-tokena-blue py-2 px-4 rounded-lg w-full flex items-center justify-center gap-2"
+                        className="bg-tokena-blue bg-opacity-5 dark:bg-tokena-dark-blue-2 text-tokena-blue dark:bg-opacity-40 dark:text-tokena-blue py-2 px-4 rounded-lg w-full flex items-center justify-center gap-2 dark:border dark:border-tokena-dark-gray dark:border-opacity-15"
                     >
                         <img src="/icons/star.svg" alt="Add to favorites" />
                         <span>Add to favorites</span>

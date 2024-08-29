@@ -2,13 +2,13 @@
 import { useEffect, useState } from "react";
 
 const ThemeToggle = () => {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState<string | null>(null);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
       const savedTheme = localStorage.getItem("theme") || "light";
       setTheme(savedTheme);
-      
+
       const root = document.documentElement;
 
       if (savedTheme === "dark") {
@@ -24,7 +24,7 @@ const ThemeToggle = () => {
   }, []);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (theme) {
       const root = document.documentElement;
 
       if (theme === "dark") {
@@ -44,6 +44,10 @@ const ThemeToggle = () => {
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
   };
+
+  if (!theme) {
+    return null;
+  }
 
   return (
     <button

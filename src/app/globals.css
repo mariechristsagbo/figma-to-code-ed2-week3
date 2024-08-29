@@ -60,4 +60,11 @@
   background-color: rgba(100, 116, 139, 0.9); 
 }
 
+@media (max-width: 420px) {
+  .cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
+
+
   
