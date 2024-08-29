@@ -46,7 +46,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchResults }) => {
   }, [query, onSearchResults]);
 
   return (
-    <div className="relative lg:w-1/5">
+    <div className="relative lg:w-1/5 w-full">
       <div className="text-sm flex items-center gap-3 border border-tokena-gray dark:border-tokena-dark-gray dark:border-opacity-40 rounded-xl p-3 text-tokena-dark-gray font-medium">
         <img src="/icons/search.svg" alt="Search Icon" className="w-4 h-4" />
         <input

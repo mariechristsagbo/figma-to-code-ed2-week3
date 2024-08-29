@@ -17,11 +17,10 @@ export default function NewsView() {
 
     return (
         <div className="flex-1 font-mona">
-            <div className="flex items-center w-full px-1 py-3 lg:p-6">
+            <div className="flex items-center w-full px-1 pt-2 lg:px-6 lg:py-4 border-b dark:bg-tokena-dark-blue-1 dark:border-tokena-dark-gray dark:border-opacity-40">
                 <button
                     className="lg:hidden p-4 focus:outline-none"
-                    onClick={toggleSidebar}
-                >
+                    onClick={toggleSidebar}>
                     <img src="/icons/hamburger.svg" alt="Menu" className="w-8 h-8 border rounded-lg p-1 dark:border-tokena-dark-gray dark:border-opacity-40" />
                 </button>
                 <Header />
