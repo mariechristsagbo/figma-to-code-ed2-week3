@@ -19,13 +19,13 @@ const TableSkeleton: React.FC = () => {
       <td className="py-4 px-6 text-right">
         <div className="w-16 h-4 bg-gray-300 rounded-full dark:bg-gray-700 ml-auto"></div>
       </td>
-      <td className="py-4 px-6 text-right hidden md:table-cell">
+      <td className="py-4 px-6 text-right">
         <div className="w-24 h-4 bg-gray-300 rounded-full dark:bg-gray-700 ml-auto"></div>
       </td>
-      <td className="py-4 px-6 text-right hidden lg:table-cell">
+      <td className="py-4 px-6 text-right">
         <div className="w-24 h-4 bg-gray-300 rounded-full dark:bg-gray-700 ml-auto"></div>
       </td>
-      <td className="py-4 px-6 text-right hidden lg:table-cell">
+      <td className="py-4 px-6 text-right">
         <div className="w-24 h-4 bg-gray-300 rounded-full dark:bg-gray-700 ml-auto"></div>
       </td>
     </tr>
