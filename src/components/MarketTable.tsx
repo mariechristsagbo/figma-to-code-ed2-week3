@@ -74,13 +74,13 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
           <table className="min-w-full">
             <thead className="bg-tokena-light-gray dark:bg-tokena-dark-blue-2 dark:bg-opacity-30">
               <tr className="text-xs">
-                <th className="py-2 px-4 text-left font-medium">#</th>
-                <th className="py-2 px-4 text-left font-medium">Coins</th>
-                <th className="py-2 px-4 text-left font-medium">Price</th>
-                <th className="py-2 px-4 text-center font-medium">24h</th>
-                <th className="py-2 px-4 text-center font-medium">24h Volume</th>
-                <th className="py-2 px-4 text-right font-medium">Market Cap</th>
-                <th className="py-2 px-4 text-right font-medium truncate">Last 7 Days</th>
+                <th className="py-3 px-4 text-left font-medium">#</th>
+                <th className="py-3 px-4 text-left font-medium">Coins</th>
+                <th className="py-3 px-4 text-left font-medium">Price</th>
+                <th className="py-3 px-4 text-center font-medium">24h</th>
+                <th className="py-3 px-4 text-center font-medium">24h Volume</th>
+                <th className="py-3 px-4 text-right font-medium">Market Cap</th>
+                <th className="py-3 px-4 text-right font-medium truncate">Last 7 Days</th>
               </tr>
             </thead>
             <tbody>
