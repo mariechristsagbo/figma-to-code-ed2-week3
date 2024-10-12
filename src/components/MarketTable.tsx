@@ -19,7 +19,7 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10); 
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   const [totalPages, setTotalPages] = useState(10);
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
         const searchIds = searchResults.length > 0 ? searchResults.map(result => result.id) : undefined;
         const { data, total } = await getMarketData(currency, currentPage, itemsPerPage, searchIds);
         setMarketData(data);
-        setTotalPages(Math.ceil(total / itemsPerPage)); 
+        setTotalPages(Math.ceil(total / itemsPerPage));
       } catch (err) {
         setError('No cryptocurrencies found. Please refresh the page after a few minutes.');
       } finally {
@@ -58,7 +58,7 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
 
   const handleItemsPerPageChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setItemsPerPage(Number(event.target.value));
-    setCurrentPage(1); 
+    setCurrentPage(1);
   };
 
   return (
@@ -74,15 +74,71 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
           <table className="min-w-full">
             <thead className="bg-tokena-light-gray dark:bg-tokena-dark-blue-2 dark:bg-opacity-30">
               <tr className="text-xs">
-                <th className="py-4 px-6 text-left font-medium">#</th>
-                <th className="py-4 px-6 text-left font-medium">Coins</th>
-                <th className="py-4 px-6 text-left font-medium">Price</th>
-                <th className="py-4 px-6 text-center font-medium">24h</th>
-                <th className="py-4 px-6 text-center font-medium">24h Volume</th>
-                <th className="py-4 px-6 text-right font-medium">Market Cap</th>
-                <th className="py-4 px-6 text-right font-medium truncate">Last 7 Days</th>
+                <th className="py-2 px-4 text-left font-medium">#</th>
+                <th className="py-2 px-4 text-left font-medium">Coins</th>
+                <th className="py-2 px-4 text-left font-medium">Price</th>
+                <th className="py-2 px-4 text-center font-medium">24h</th>
+                <th className="py-2 px-4 text-center font-medium">24h Volume</th>
+                <th className="py-2 px-4 text-right font-medium">Market Cap</th>
+                <th className="py-2 px-4 text-right font-medium truncate">Last 7 Days</th>
               </tr>
             </thead>
+            <tbody>
+              {marketData.map((coin, index) => (
+                <tr
+                  key={coin.id}
+                  className="border-b dark:border-tokena-dark-blue-2 hover:bg-tokena-light-gray dark:hover:bg-tokena-dark-blue-1 cursor-pointer"
+                  onClick={() => openModal(coin)}
+                >
+                  <td className="py-2 px-6">{index + 1 + (currentPage - 1) * itemsPerPage}</td>
+                  <td className="py-2 px-4 flex items-center">
+                    <img src={coin.image || coin.thumb} alt={coin.name} className="w-6 h-6 mr-2" />
+                    <div>
+                      <p className="font-medium text-sm line-clamp-1">{coin.name}</p>
+                      <p className="uppercase dark:text-tokena-gray text-gray-500 text-xs">{coin.symbol}</p>
+                    </div>
+                  </td>
+                  <td className="py-2 px-4 text-left text-sm">
+                    {new Intl.NumberFormat('en-US', {
+                      style: 'currency',
+                      currency: currency.toUpperCase(),
+                    }).format(coin.current_price || 0)}
+                  </td>
+                  <td
+                    className={`py-2 px-4 text-right font-medium text-sm ${coin.price_change_percentage_24h >= 0 ? 'text-tokena-green' : 'text-tokena-red'
+                      }`}
+                  >
+                    <p className={`p-1 px-2 text-xs font-semibold rounded-full ${coin.price_change_percentage_24h >= 0 ? 'bg-tokena-green bg-opacity-10 max-w-max ml-auto' : 'bg-tokena-red bg-opacity-10 max-w-max ml-auto'
+                      }`}>  {coin.price_change_percentage_24h?.toFixed(2) || 'N/A'}%</p>
+                  </td>
+                  <td className="py-2 px-4 text-right text-sm">
+                    {new Intl.NumberFormat('en-US', {
+                      style: 'currency',
+                      currency: currency.toUpperCase(),
+                    }).format(coin.total_volume || 0)}
+                  </td>
+                  <td className="py-2 px-4 text-right text-sm font-medium">
+                    {new Intl.NumberFormat('en-US', {
+                      style: 'currency',
+                      currency: currency.toUpperCase(),
+                    }).format(coin.market_cap || 0)}
+                  </td>
+                  <td className="py-2 px-4 text-right">
+                    {coin.sparkline_in_7d ? (
+                      <Sparklines data={coin.sparkline_in_7d.price} width={100} height={40}>
+                        <SparklinesLine
+                          color={coin.price_change_percentage_24h >= 0 ? '#16a34a' : '#dc2626'}
+                          style={{ fill: 'none' }}
+                        />
+                      </Sparklines>
+                    ) : (
+                      'N/A'
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+
             {loading ? (
               <TableSkeleton />
             ) : (
@@ -147,7 +203,7 @@ const MarketTable: React.FC<MarketTableProps> = ({ searchResults }) => {
       )}
       <div className="flex justify-between items-center mt-4 px-4">
         <div className="flex items-center">
-        <button
+          <button
             onClick={() => handlePageChange(currentPage - 1)}
             disabled={currentPage === 1}
             className="px-3 py-1 text-sm border rounded-l-md dark:text-white dark:border-tokena-dark-gray dark:border-opacity-40 disabled:opacity-50"
